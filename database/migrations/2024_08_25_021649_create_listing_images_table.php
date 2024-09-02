@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('listing_images', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('listing_id')->constrained()->onDelete('cascade'); // Foreign key for properties
+            $table->foreignUuid('listing_id')->constrained()->onDelete('cascade'); // Foreign key for properties
             $table->string('image_path'); // Field for image URL or path
             $table->timestamps();
         });

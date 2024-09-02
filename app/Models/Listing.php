@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
+use App\Models\Image;
 
 class Listing extends Model
 {
@@ -21,9 +22,14 @@ class Listing extends Model
         'description',
         'price',
         'address',
-        'main_image',
-        'roomates',
-        'duration'
+        'thumbnail',
+        'type',
+        'city',
+        'state',
+        'gender',
+        'duration',
+        'availability',
+        'user_id'
     ];
 
     protected static function boot()
@@ -54,5 +60,18 @@ class Listing extends Model
     public function getKeyType()
     {
         return 'string';
+    }
+
+    public function getImage()
+    {
+        if ($this->thumbnail) {
+            return url('storage/' . $this->thumbnail);
+        }
+        return "/assets/prof-silhouette.png";
+    }
+
+    public function listing_images()
+    {
+        return $this->hasMany(Image::class);
     }
 }

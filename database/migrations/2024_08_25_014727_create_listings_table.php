@@ -12,15 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('listings', function (Blueprint $table) {
-            // $table->uuid('id')->primary();
-            $table->id();
+             $table->uuid('id')->primary();
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('address');
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
             $table->decimal('price', 10, 2);
-            $table->string('main_image')->nullable();
-            $table->integer('roomates')->default(0);
-            $table->integer('duration')->nullable();
+            $table->string('thumbnail');
+            $table->enum('type', ['Private Room','Shared Room','Apartment']);
+            $table->enum('gender', ['Male','Female'])->nullable();
+            $table->date('availability')->nullable();
+            $table->string('duration')->nullable();
+            $table->foreignUuid('user_id')->constrained()->onDelete('cascade'); // Foreign key to users table
             $table->timestamps();
         });
     }

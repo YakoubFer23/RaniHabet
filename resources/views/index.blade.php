@@ -72,12 +72,12 @@
                             <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                                 <div class="property-item rounded overflow-hidden">
                                     <div class="position-relative overflow-hidden">
-                                        <a href="{{route('listings',['id'=>$listing->id])}}"><img class="img-fluid" src="{{$listing->main_image}}" alt=""></a>
+                                        <a href="{{route('listings',['id'=>$listing->id])}}"><img class="img-fluid" src="{{$listing->getImage()}}" alt=""></a>
                                         <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">For Sell</div>
-                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">Appartment</div>
+                                        <div class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3">{{$listing->type}}</div>
                                     </div>
                                     <div class="p-4 pb-0">
-                                        <h5 class="text-primary mb-3">{{$listing->price}}</h5>
+                                        <h5 class="text-primary mb-3">${{$listing->price}}</h5>
                                         <a class="d-block h5 mb-2" href="">{{$listing->title}}</a>
                                         <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{$listing->address}}</p>
                                     </div>

@@ -20,11 +20,12 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
-Route::get('/listings/{id}/', [ListingController::class, 'show'])->name('listings')->middleware(['auth', 'verified', IdentityVerification::class]);
+Route::get('/listings/{id}/', [ListingController::class, 'show'])->name('listings')->middleware(['auth', 'verified']);
 
+Route::get('/listing/add', [ListingController::class,'create'])->name('listings.add');
+Route::post('/listings', [ListingController::class,'store'])->name('listings.store');
 
 Route::resource('user', UserController::class)->only('show', 'edit', 'update')->middleware('auth');
-
 
 
 Route::get('/dashboard', function () {

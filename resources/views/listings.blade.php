@@ -16,18 +16,12 @@
 
             <div class="carousel-slide">
           
-            <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="/{{$listing->main_image}}" />
+            <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="{{$listing->getImage()}}" />
           
+          @foreach ($listing->listing_images as $image )
+          <img class="rounded-2" src="{{$image->getSecImage()}}" />
           
-            <img class="rounded-2" src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big1.webp" />
-          
-            <img class="rounded-2" src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big2.webp" />
-          
-            <img  class="rounded-2" src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big3.webp" />
-          
-            <img class="rounded-2" src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big4.webp" />
-          
-            <img class="rounded-2" src="https://mdbcdn.b-cdn.net/img/bootstrap-ecommerce/items/detail1/big.webp" />
+          @endforeach
             </div>
 
             <button class="prev" onclick="prevImage()">&#10094;</button>

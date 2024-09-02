@@ -80,7 +80,9 @@
 })(jQuery);
 
 //Banner close button
+if(document.getElementById('close-btn') !== null){
+    document.getElementById('close-btn').addEventListener('click', function() {
+        document.getElementById('banner').style.display = 'none';
+    });
 
-document.getElementById('close-btn').addEventListener('click', function() {
-    document.getElementById('banner').style.display = 'none';
-});
+}
