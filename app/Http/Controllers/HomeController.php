@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     public function index(){
         
-        $listings = Listing::orderBy('created_at', 'DESC')->get();
+        $listings = Listing::orderBy('created_at', 'DESC')->paginate(6);
 
         return view('index', ['listings' => $listings]);
         
