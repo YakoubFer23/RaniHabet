@@ -1,6 +1,6 @@
 <div class="container-fluid nav-bar bg-transparent" id="navyy">
             <nav class="navbar navbar-expand-lg bg-white navbar-light py-0 px-4">
-                <a href="index.html" class="navbar-brand d-flex align-items-center text-center">
+                <a href="{{url('/')}}" class="navbar-brand d-flex align-items-center text-center">
                     <div class="icon p-2 me-2">
                         <img class="img-fluid" src="{{ asset('img/icon-deal.png')}}" alt="Icon" style="width: 30px; height: 30px;">
                     </div>
@@ -12,15 +12,15 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto">
                         <a href="{{ url('/') }}" class="nav-item nav-link">Home</a>
-                        <a href="{{route('about')}}" class="nav-item nav-link">About</a>
-                        <a href="{{route('contact')}}" class="nav-item nav-link">Contact</a>
+                        <a href="{{route('listings.add')}}" class="nav-item nav-link">Add a listing</a>
+                        <a href="{{route('user.show',Auth::user()->id)}}" class="nav-item nav-link">Profile</a>
                     </div>
                     @if(Auth::check())
     <!-- User is authenticated, display user-specific content here -->
     <div class="nav-item dropdown">
         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Welcome {{Auth::user()->firstname}}</a>
         <div class="dropdown-menu rounded-0 m-0">
-            <a href="{{route('dashboard')}}" class="dropdown-item">Profile</a>
+            <a href="{{route('dash.index')}}" class="dropdown-item">Dashboard</a>
             <!-- Logout Form -->
             <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 Logout

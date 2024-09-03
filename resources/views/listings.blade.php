@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @php
-    $includeCarousel = true;
+  $includeCarousel = true;
 @endphp
 
 
@@ -14,18 +14,19 @@
       <aside class="col-lg-6">
         <div class="carousel-container">
 
-            <div class="carousel-slide">
-          
-            <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="{{$listing->getImage()}}" />
-          
-          @foreach ($listing->listing_images as $image )
-          <img class="rounded-2" src="{{$image->getSecImage()}}" />
-          
-          @endforeach
-            </div>
+          <div class="carousel-slide">
 
-            <button class="prev" onclick="prevImage()">&#10094;</button>
-        <button class="next" onclick="nextImage()">&#10095;</button>
+            <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit"
+              src="{{$listing->getImage()}}" />
+
+            @foreach ($listing->listing_images as $image)
+        <img class="rounded-2" src="{{$image->getSecImage()}}" />
+
+      @endforeach
+          </div>
+
+          <button class="prev" onclick="prevImage()">&#10094;</button>
+          <button class="next" onclick="nextImage()">&#10095;</button>
         </div>
         <!-- thumbs-wrap.// -->
         <!-- gallery-wrap .end// -->
@@ -35,39 +36,43 @@
           <h4 class="title text-dark">
             {{$listing->title}}
           </h4>
-          
-            
-          </div>
 
-          <div class="mb-3">
-            <span class="h5" style='color: #00B98E'>${{$listing->price}}</span>
-            
-          </div>
 
-          <p>
-            {{$listing->description}}
-          </p>
-
-          <div class="row">
-            <dt class="col-6">Address:</dt>
-            <dd class="col-6">{{$listing->address}}</dd>
-
-            <dt class="col-6"># of roomates:</dt>
-            <dd class="col-6">{{$listing->roomates}}</dd>
-
-            <dt class="col-6">Duration:</dt>
-            <dd class="col-6">{{$listing->duration}}</dd>
-
-            
-          </div>
-
-          <hr />
-
-          
-          <a href="#" class="btn btn-primary shadow-0  mx-auto w-100"> <i class="me-1 fa fa-check"></i> Apply </a>
         </div>
-      </main>
+
+        <div class="mb-3">
+          <span class="h5" style='color: #00B98E'>${{$listing->price}}</span>
+
+        </div>
+
+        <p>
+          {{$listing->description}}
+        </p>
+
+        <div class="row">
+          <dt class="col-6">Address:</dt>
+          <dd class="col-6">{{$listing->address}}</dd>
+
+          <dt class="col-6"># of roomates:</dt>
+          <dd class="col-6">{{$listing->roomates}}</dd>
+
+          <dt class="col-6">Duration:</dt>
+          <dd class="col-6">{{$listing->duration}}</dd>
+
+
+        </div>
+
+        <hr />
+
+
+        <!--      <a href="#" class="btn btn-primary shadow-0  mx-auto w-100"> <i class="me-1 fa fa-check"></i> Apply </a> -->
+        <form action="{{ route('listings.apply', $listing->id) }}" method="POST">
+          @csrf
+          <button type="submit" class="btn btn-primary">Apply</button>
+        </form>
     </div>
+    </main>
+  </div>
   </div>
 </section>
 <!-- content -->
@@ -80,7 +85,9 @@
           <!-- Pills navs -->
           <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
             <li class="nav-item d-flex" role="presentation">
-              <p class="nav-link d-flex align-items-center justify-content-center w-100 active" style='color: #FFFFFF' id="ex1-tab-1" data-mdb-toggle="pill" role="tab" aria-controls="ex1-pills-1" aria-selected="true">About your roomates</p>
+              <p class="nav-link d-flex align-items-center justify-content-center w-100 active" style='color: #FFFFFF'
+                id="ex1-tab-1" data-mdb-toggle="pill" role="tab" aria-controls="ex1-pills-1" aria-selected="true">About
+                your roomates</p>
             </li>
 
           </ul>
@@ -90,8 +97,10 @@
           <div class="tab-content" id="ex1-content">
             <div class="tab-pane fade show active" id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1">
               <p>
-                With supporting text below as a natural lead-in to additional content. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                With supporting text below as a natural lead-in to additional content. Lorem ipsum dolor sit amet,
+                consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
                 pariatur.
               </p>
               <div class="row mb-2">
@@ -111,14 +120,14 @@
                   </ul>
                 </div>
               </div>
-              
+
             </div>
 
           </div>
           <!-- Pills content -->
         </div>
       </div>
-      
+
     </div>
   </div>
 </section>
@@ -133,30 +142,29 @@
 
 <!-- JS for Image Carousel -->
 <script>
-    // Ensure this script is placed after the HTML or wrapped in DOMContentLoaded
-    document.addEventListener('DOMContentLoaded', function () {
+  // Ensure this script is placed after the HTML or wrapped in DOMContentLoaded
+  document.addEventListener('DOMContentLoaded', function () {
     const carouselSlide = document.querySelector('.carousel-slide');
     if (carouselSlide) { // Check if carouselSlide exists
-        const images = document.querySelectorAll('.carousel-slide img');
+      const images = document.querySelectorAll('.carousel-slide img');
 
-        let counter = 0;
-        const size = images[0].clientWidth;
+      let counter = 0;
+      const size = images[0].clientWidth;
 
-        window.nextImage = function() {
-            if (counter >= images.length - 1) counter = -1;
-            carouselSlide.style.transform = 'translateX(' + (-size * ++counter) + 'px)';
-        }
+      window.nextImage = function () {
+        if (counter >= images.length - 1) counter = -1;
+        carouselSlide.style.transform = 'translateX(' + (-size * ++counter) + 'px)';
+      }
 
-        window.prevImage = function() {
-            if (counter <= 0) counter = images.length;
-            carouselSlide.style.transform = 'translateX(' + (-size * --counter) + 'px)';
-        }
+      window.prevImage = function () {
+        if (counter <= 0) counter = images.length;
+        carouselSlide.style.transform = 'translateX(' + (-size * --counter) + 'px)';
+      }
 
-        
+
     } else {
-        console.error('Carousel slide not found');
+      console.error('Carousel slide not found');
     }
-});
+  });
 
 </script>
-

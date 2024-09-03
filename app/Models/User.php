@@ -80,5 +80,18 @@ class User extends Authenticatable implements MustVerifyEmail
         return "/assets/prof-silhouette.png";
     }
 
+
+    // Listings created by the user
+    public function listings()
+    {
+        return $this->hasMany(Listing::class);
+    }
+
+    // Listings the user has applied to
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
+    }
+
     
 }

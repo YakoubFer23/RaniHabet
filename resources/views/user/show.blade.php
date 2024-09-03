@@ -32,6 +32,14 @@
     </div>
 @endif
 
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
+
+
 <div class="card w-75 mt-3 m-auto">
   <div class="card-body d-flex align-items-center flex-column flex-md-row">
     <img class="rounded-circle border border-primary" id="profile-pic" alt="avatar2" src="{{$user->getImage()}}" />

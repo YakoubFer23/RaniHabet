@@ -64,7 +64,7 @@
                 </div>
             @endif
         @endif
-        @if (session('success'))
+        @if (session('pending'))
             
                 <div class="banner" id="banner">
                     Your identity verification is pending approval. you will be notified once it's approved

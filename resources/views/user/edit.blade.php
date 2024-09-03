@@ -39,7 +39,7 @@
       @auth()
       @if (Auth::id() === $user->id)
       <label for="image-upload" class="form-label mt-2">Upload New Image</label>
-      <input type="file" id="image-upload" name="profile_picture" class="form-control form-control-sm w-auto">
+      <input type="file" id="image-upload" name="profile_picture" class="form-control form-control-sm w-auto" accept="image/*">
       @error('image-upload')
             <span class="text-danger fs-6">{{$message}}</span>
       @enderror
@@ -128,12 +128,26 @@
 
 <!-- content -->
 
-
-
-
-
-
-
-
-
 @endsection
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('edit-form').addEventListener('submit', function (e) {
+            const fileInput = document.getElementById('image-upload');
+            const file = fileInput.files[0];
+    
+            if (file) {
+                const fileType = file.type;
+                const validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    
+                if (!validImageTypes.includes(fileType)) {
+                    alert('Please upload a valid image file (JPEG, PNG, GIF).');
+                    e.preventDefault(); // Prevent the form from submitting
+                }
+            }
+        });
+
+    })
+</script>

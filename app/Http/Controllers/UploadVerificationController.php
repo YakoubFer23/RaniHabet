@@ -16,8 +16,8 @@ class UploadVerificationController extends Controller
         $user = Auth::user();
         
         $validated = request()->validate(
-            [
-                'identity_verified_picture' => 'image',
+            [ 
+                'identity_verified_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:10000',
             ]
         );
         if (request()->hasFile('identity_verified_picture')) {
@@ -27,7 +27,7 @@ class UploadVerificationController extends Controller
         }
         $user->update($validated);
 
-        return redirect()->route('home')->with('success','Congrats');
+        return redirect()->route('home')->with('pending','Congrats');
     }
 
 }

@@ -1,13 +1,16 @@
 <?php
 
+use App\Http\Controllers\DashController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UploadVerificationController;
+use App\Http\Middleware\Authorized;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\IdentityVerification;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Request;
+use App\Http\Controllers\ChangePasswordController;
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
@@ -20,13 +23,24 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
-Route::get('/listings/{id}/', [ListingController::class, 'show'])->name('listings')->middleware(['auth', 'verified']);
+Route::get('/listings/{id}/', [ListingController::class, 'show'])->name('listings.show')->middleware(['auth', 'verified']);
 
 Route::get('/listing/add', [ListingController::class,'create'])->name('listings.add');
 Route::post('/listings', [ListingController::class,'store'])->name('listings.store');
+Route::post('/listings/{id}/apply', [ListingController::class, 'apply'])->name('listings.apply');
 
-Route::resource('user', UserController::class)->only('show', 'edit', 'update')->middleware('auth');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dash', [DashController::class, 'show'])->name('dash.index');
+    Route::delete('/dash/listing/{id}', [DashController::class, 'destroyListing'])->name('dash.listing.delete');
+    Route::delete('/dash/application/{id}', [DashController::class, 'destroyApplication'])->name('dash.application.delete');
+});
 
+Route::post('/change-password', [ChangePasswordController::class, 'changePassword'])->name('change-password')->middleware(['auth', 'verified']);
+
+//Route::resource('user', UserController::class)->only('show', 'edit', 'update')->middleware('auth');
+Route::get('/user/{id}',[UserController::class,'show'])->name('user.show')->middleware('auth');
+Route::get('/user/{id}/edit',[UserController::class,'edit'])->name('user.edit')->middleware(['auth', Authorized::class]);
+Route::put('/user/{id}',[UserController::class,'update'])->name('user.update')->middleware(['auth', Authorized::class]);
 
 Route::get('/dashboard', function () {
     return view('dashboard/dashboard');

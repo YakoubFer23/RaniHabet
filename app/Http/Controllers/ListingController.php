@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Listing;
+use App\Models\Application;
+use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
 {
@@ -25,18 +27,18 @@ class ListingController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'title' => 'required|string|max:50',
+            'description' => 'required|string|max:2000',
             'price' => 'required|numeric',
-            'address' => 'required|string|max:255',
+            'address' => 'required|string|max:100',
             'city' => 'required|string',
             'state' => 'required|string',
-            'thumbnail' => 'required|image',
-            'type' => 'required|string|required',
-            'gender' => 'string',
+            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:10000',
+            'type' => 'required|string',
+            'gender' => 'string|nullable',
             'availability' => 'required|date',
             'duration' => 'string|required',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validate each uploaded image
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:10000', // Validate each uploaded image
         ]);
 
         $listing = new Listing();
@@ -65,6 +67,35 @@ class ListingController extends Controller
             }
         }
 
-        return redirect()->route('listings.add')->with('success', 'Listing created successfully.');
+        return redirect()->route('dash.index')->with('success', 'Listing created successfully.');
+    }
+
+    public function apply($id)
+    {
+        $user = Auth::user();
+
+        // Check if the user trying to apply is the owner of the listing
+        $sameUserApplying = Listing::where('user_id', $user->id)->first();
+
+        if ($sameUserApplying) {
+            return redirect()->route('dash.index')->with('error', 'You little shit you\'re the listing owner');
+        }
+
+
+        // Check if the user has already applied to this listing
+        $existingApplication = Application::where('user_id', $user->id)->where('listing_id', $id)->first();
+
+
+        if ($existingApplication) {
+            return redirect()->route('dash.index')->with('error', 'You have already applied to this listing.');
+        }
+
+        // Create a new application
+        Application::create([
+            'user_id' => $user->id,
+            'listing_id' => $id,
+        ]);
+
+        return redirect()->route('dash.index')->with('success', 'You have successfully applied to the listing.');
     }
 }

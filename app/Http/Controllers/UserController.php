@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Storage;
@@ -11,29 +12,30 @@ class UserController extends Controller
 
 
 
-
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show($id)
     {
+        $user = User::findOrFail($id);
         return view('user.show', compact('user'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit($id)
     {
+        $user = User::findOrFail($id);
         return view('user.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(User $user)
+    public function update($id)
     {
-        
+        $user = User::findOrFail($id);
         $validated = request()->validate(
             [
                 'phone_number' => 'max:10',

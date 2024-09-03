@@ -564,4 +564,8 @@
       max-width: 200px; /* Maximum width to prevent it from being too wide */
     }
   }
+
+  .swal2-container {
+    z-index: 999999;
+  }
   

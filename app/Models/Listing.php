@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
 use App\Models\Image;
+use App\Models\Application;
 
 class Listing extends Model
 {
@@ -73,5 +74,17 @@ class Listing extends Model
     public function listing_images()
     {
         return $this->hasMany(Image::class);
+    }
+
+     // Relationship with the user who created the listing
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    // Relationship with applications
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
     }
 }

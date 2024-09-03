@@ -24,6 +24,7 @@ return new class extends Migration
             $table->enum('gender', ['Male','Female'])->nullable();
             $table->date('availability')->nullable();
             $table->string('duration')->nullable();
+            $table->string('status')->default('Pending');
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade'); // Foreign key to users table
             $table->timestamps();
         });
