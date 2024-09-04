@@ -17,7 +17,7 @@ class IdentityVerification
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check()) {
-            if (Auth::user()->identity_verified == 'unverified' || Auth::user()->identity_verified == 'failed') {
+            if (Auth::user()->identity_verified == 'Unverified' || Auth::user()->identity_verified == 'Failed') {
                 return $next($request);
             }
             

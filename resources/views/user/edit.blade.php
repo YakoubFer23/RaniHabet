@@ -4,29 +4,6 @@
 
 <!-- content -->
 
-<!--
-<div class="card w-75 mt-3 m-auto">
-    <div class="card-body d-inline-flex flex-column flex-md-row">
-        <img class="rounded-circle border border-primary" id="profile-pic" alt="avatar2"
-            src="{{ $user->profile_picture ?? '/assets/prof-silhouette.png'}}" />
-        <div class="d-flex flex-column ms-3">
-            <h4 style="color: #00B98E; margin-bottom: 10px;">{{ $user->firstname }} {{ $user->lastname }}</h4>
-            <div class="d-flex flex-column gap-1">
-                <span class="d-flex align-items-center" style="margin-bottom: 1.7px;"><i
-                        class="fa fa-envelope me-1"></i>: {{ $user->email }}</span>
-                <div class="d-flex align-items-center mb-2">
-
-                    <span style="margin-bottom: 1.7px; margin-right: 4px; !important" class="mr-6"><i class="fa fa-phone"> :</i></span>
-                    <input type="number" id="phone-number" name="phone-number" value="{{ $user->phone_number ?? '' }}"
-                        class="form-control form-control-sm w-auto ml-6">
-                </div>
-                <span class="d-flex align-items-center" style="margin-bottom: 1.7px;"><i
-                        class="fa fa-venus-mars me-1"></i>: Male</span>
-            </div>
-        </div>
-    </div>
-</div>
--->
 <form id="edit-form" action="{{route('user.update',$user->id)}}" method="post" enctype="multipart/form-data">
     @csrf
     @method('put')
@@ -62,6 +39,13 @@
                 </div>
                 <span class="d-flex align-items-center" style="margin-bottom: 1.7px;"><i
                         class="fa fa-venus-mars me-1"></i>: Male</span>
+                        <span class="d-flex align-items-center"><i class="fa fa-address-card me-1"> :</i>
+        @if ($user->identity_verified === 'Verified' || $user->identity_verified === 'Pending' )
+        {{$user->identity_verified}}
+        @else
+        <a href="{{route('verify-identity')}}" target="_blank">{{$user->identity_verified}}</a>
+        @endif
+    </span>
             </div>
     </div>
 

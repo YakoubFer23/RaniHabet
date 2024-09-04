@@ -49,6 +49,13 @@
         <span class="d-flex align-items-center"><i class="fa fa-envelope me-1"> :</i> {{ $user->email }}</span>
         <span class="d-flex align-items-center"><i class="fa fa-phone me-1"> :</i> {{$user->phone_number ?? 'N/A'}}</span>
         <span class="d-flex align-items-center"><i class="fa fa-venus-mars me-1"> :</i> {{$user->gender}}</span>
+        <span class="d-flex align-items-center"><i class="fa fa-address-card me-1"> :</i>
+        @if ($user->identity_verified === 'Verified' || $user->identity_verified === 'Pending' )
+        {{$user->identity_verified}}
+        @else
+        <a href="{{route('verify-identity')}}" target="_blank">{{$user->identity_verified}}</a>
+        @endif
+    </span>
       </div>
     </div>
     @auth()

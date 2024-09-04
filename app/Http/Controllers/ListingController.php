@@ -34,13 +34,19 @@ class ListingController extends Controller
             'city' => 'required|string',
             'state' => 'required|string',
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:10000',
-            'type' => 'required|string',
-            'gender' => 'string|nullable',
+            'type' => 'required|in:Apartment,Private Room,Shared Room',
+            'gender' => [
+                function ($attribute, $value, $fail) use ($request) {
+                    if (in_array($request->type, ['Private Room', 'Shared Room']) && empty($value)) {
+                        $fail('The gender field is required for Private Room and Shared Room types.');
+                    }
+                },
+            ],
             'availability' => 'required|date',
             'duration' => 'string|required',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:10000', // Validate each uploaded image
         ]);
-
+    
         $listing = new Listing();
         $listing->title = $request->title;
         $listing->description = $request->description;
@@ -58,26 +64,27 @@ class ListingController extends Controller
         }
         $listing->user_id = auth()->id();
         $listing->save();
-
-
+    
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $path = $image->store('listings', 'public'); // Store image in the storage
                 $listing->listing_images()->create(['image_path' => $path]);
             }
         }
-
+    
         return redirect()->route('dash.index')->with('success', 'Listing created successfully.');
     }
-
-    public function apply($id)
+    
+    public function apply($id, Request $request)
     {
         $user = Auth::user();
-
+        $listingId = $request->route('id');
+        
+        $listing = Listing::findOrFail($listingId);
         // Check if the user trying to apply is the owner of the listing
-        $sameUserApplying = Listing::where('user_id', $user->id)->first();
-
-        if ($sameUserApplying) {
+      //  $sameUserApplying = Listing::where('user_id', $user->id)->first();
+       
+        if ($listing->user_id == $user->id) {
             return redirect()->route('dash.index')->with('error', 'You little shit you\'re the listing owner');
         }
 

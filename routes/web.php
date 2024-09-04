@@ -1,19 +1,21 @@
 <?php
 
 use App\Http\Controllers\DashController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UploadVerificationController;
 use App\Http\Middleware\Authorized;
+use App\Http\Middleware\SameGender;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\IdentityVerification;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Request;
 use App\Http\Controllers\ChangePasswordController;
+use App\Models\Listing;
 
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
+Route::get('/', [HomeController::class, 'index'])->name('home')->middleware(['auth', 'verified']);
 
 Route::get('/about', function () {
     return view('about');
@@ -27,7 +29,7 @@ Route::get('/listings/{id}/', [ListingController::class, 'show'])->name('listing
 
 Route::get('/listing/add', [ListingController::class,'create'])->name('listings.add');
 Route::post('/listings', [ListingController::class,'store'])->name('listings.store');
-Route::post('/listings/{id}/apply', [ListingController::class, 'apply'])->name('listings.apply');
+Route::post('/listings/{id}/apply', [ListingController::class, 'apply'])->name('listings.apply')->middleware(SameGender::class);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dash', [DashController::class, 'show'])->name('dash.index');
@@ -67,11 +69,7 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
- Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
- });
+ 
 
 Auth::routes();
 
