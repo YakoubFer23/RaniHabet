@@ -8,11 +8,14 @@ use App\Models\Listing;
 
 class HomeController extends Controller
 {
-    public function index(){
-        
-        $listings = Listing::orderBy('created_at', 'DESC')->paginate(6);
+    public function index()
+    {
+
+        $listings = Listing::where('status', 'online')
+            ->orderBy('created_at', 'DESC')
+            ->paginate(6);
 
         return view('index', ['listings' => $listings]);
-        
+
     }
 }

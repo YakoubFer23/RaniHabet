@@ -3,6 +3,12 @@
 
 @section('content')
 
+@if(session('error'))
+    <div class="alert alert-danger mt-2">
+        {{ session('error') }}
+    </div>
+@endif
+
 <div class="container">
     <div class="col-lg-12">
         <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">

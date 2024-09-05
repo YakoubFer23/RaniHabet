@@ -6,6 +6,8 @@ use App\Http\Controllers\ListingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UploadVerificationController;
 use App\Http\Middleware\Authorized;
+use App\Http\Middleware\ListApplyControll;
+use App\Http\Middleware\PublicProfile;
 use App\Http\Middleware\SameGender;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\IdentityVerification;
@@ -28,8 +30,8 @@ Route::get('/contact', function () {
 Route::get('/listings/{id}/', [ListingController::class, 'show'])->name('listings.show')->middleware(['auth', 'verified']);
 
 Route::get('/listing/add', [ListingController::class,'create'])->name('listings.add');
-Route::post('/listings', [ListingController::class,'store'])->name('listings.store');
-Route::post('/listings/{id}/apply', [ListingController::class, 'apply'])->name('listings.apply')->middleware(SameGender::class);
+Route::post('/listings', [ListingController::class,'store'])->name('listings.store')->middleware(ListApplyControll::class);
+Route::post('/listings/{id}/apply', [ListingController::class, 'apply'])->name('listings.apply')->middleware(SameGender::class, ListApplyControll::class);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dash', [DashController::class, 'show'])->name('dash.index');
@@ -40,7 +42,7 @@ Route::middleware(['auth'])->group(function () {
 Route::post('/change-password', [ChangePasswordController::class, 'changePassword'])->name('change-password')->middleware(['auth', 'verified']);
 
 //Route::resource('user', UserController::class)->only('show', 'edit', 'update')->middleware('auth');
-Route::get('/user/{id}',[UserController::class,'show'])->name('user.show')->middleware('auth');
+Route::get('/user/{id}',[UserController::class,'show'])->name('user.show')->middleware(['auth', PublicProfile::class]);
 Route::get('/user/{id}/edit',[UserController::class,'edit'])->name('user.edit')->middleware(['auth', Authorized::class]);
 Route::put('/user/{id}',[UserController::class,'update'])->name('user.update')->middleware(['auth', Authorized::class]);
 
