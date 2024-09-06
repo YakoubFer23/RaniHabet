@@ -24,6 +24,7 @@ return new class extends Migration {
             $table->enum('gender', ['Male', 'Female']);
             $table->text('about')->nullable()->default('');
             $table->string('profile_picture')->default('');
+            $table->string('joueur')->default('yachir');
             $table->rememberToken();
             $table->timestamps();
         });

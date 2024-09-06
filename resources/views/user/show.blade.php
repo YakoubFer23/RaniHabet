@@ -3,29 +3,7 @@
 @section('content')
 
 <!-- content -->
- <!--
-<div class="card w-75 mt-3 m-auto">
-    <div class="card-body d-inline-flex">
-        <img class="rounded-circle border border-primary" id="profile-pic" alt="avatar2"
-            src="{{asset('assets/listings/abdou.jpg')}}" />
-        <div class="d-flex flex-column ms-3">
-            <h4 style="color: #00B98E; margin-bottom: 25px;">{{$user->firstname}}&nbsp;{{$user->lastname}}</h4>
-            <div class="d-flex flex-column justify-content-around">
-                <span style="margin-bottom: 1.7px;"><i class="fa fa-envelope"> :</i> {{$user->email}}</span>
-                <span style="margin-bottom: 1.7px;"><i class="fa fa-phone"> :</i> 7198319673</span>
-                <span style="margin-bottom: 1.7px;"><i class="fa fa-venus-mars"> :</i> Male</span>
-            </div>
-        </div>
-        @auth()
-        @if (Auth::id() === $user->id)
-        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary shadow-0 position-absolute bottom-0 end-0 mb-2 me-2 edit-btn">
-            <i class="me-1 fa fa-check"></i> Edit
-        </a>
-        @endif
-        @endauth
-    </div>
-</div>
--->
+ 
 @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}

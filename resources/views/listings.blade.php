@@ -64,7 +64,7 @@
           <dd class="col-6">{{$listing->address}}</dd>
 
           <dt class="col-6">Location:</dt>
-          <dd class="col-6">{{$listing->city}}, {{$listing->state}}</dd>
+          <dd class="col-6">{{$listing->city}}, {{$states[$listing->state]}}</dd>
 
           <dt class="col-6">Available on:</dt>
           <dd class="col-6">{{$listing->availability}}</dd>

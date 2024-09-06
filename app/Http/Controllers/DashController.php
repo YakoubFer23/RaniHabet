@@ -36,7 +36,7 @@ class DashController extends Controller
                 $image->delete(); // Delete the record from the database
             }
             Storage::disk('public')->delete($listing->thumbnail);
-            return redirect()->back()->with('success', 'Listing deleted successfully.');
+            return redirect()->back()->with('success', 'Property deleted successfully.');
         }
 
         return redirect()->back()->with('error', 'Unauthorized action.');

@@ -12,7 +12,7 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto">
                         <a href="{{ url('/') }}" class="nav-item nav-link">Home</a>
-                        <a href="{{route('listings.add')}}" class="nav-item nav-link">Add a listing</a>
+                        <a href="{{route('listings.add')}}" class="nav-item nav-link">Add a Property</a>
                         <a href="{{route('user.show',Auth::user()->id)}}" class="nav-item nav-link">Profile</a>
                     </div>
                     @if(Auth::check())

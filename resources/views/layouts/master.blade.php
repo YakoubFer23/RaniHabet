@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>RaniHabet - Real Estate HTML Template</title>
+    <title>Rani Habet</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">

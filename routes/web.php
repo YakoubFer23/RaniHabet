@@ -18,47 +18,33 @@ use App\Http\Controllers\ChangePasswordController;
 use App\Models\Listing;
 
 
-Route::get('/', [HomeController::class, 'index'])->name('home')->middleware(['auth', 'verified']);
-
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
-
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
-
-Route::get('/listings/{id}/', [ListingController::class, 'show'])->name('listings.show')->middleware(['auth', 'verified',PendingListing::class]);
-
-Route::get('/listing/add', [ListingController::class,'create'])->name('listings.add');
-Route::post('/listings', [ListingController::class,'store'])->name('listings.store')->middleware(ListApplyControll::class);
-Route::post('/listings/{id}/apply', [ListingController::class, 'apply'])->name('listings.apply')->middleware(SameGender::class, ListApplyControll::class);
-
-
-
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','verified'])->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::post('/listings', [ListingController::class,'store'])->name('listings.store')->middleware(ListApplyControll::class);
+    Route::post('/listings/{id}/apply', [ListingController::class, 'apply'])->name('listings.apply')->middleware(SameGender::class, ListApplyControll::class);
+    Route::get('/listings/{id}/', [ListingController::class, 'show'])->name('listings.show')->middleware(PendingListing::class);
+    Route::get('/listing/add', [ListingController::class,'create'])->name('listings.add');
     Route::get('/dash', [DashController::class, 'show'])->name('dash.index');
     Route::delete('/dash/listing/{id}', [DashController::class, 'destroyListing'])->name('dash.listing.delete');
     Route::delete('/dash/application/{id}', [DashController::class, 'destroyApplication'])->name('dash.application.delete');
+    Route::get('/contact', function () {return view('contact');})->name('contact');
+    Route::get('/about', function () {return view('about');})->name('about');
+    Route::get('/terms', function () {return view('terms');})->name('terms');
+    Route::get('/privacy', function () {return view('privacy');})->name('privacy');
+    Route::post('/change-password', [ChangePasswordController::class, 'changePassword'])->name('change-password');
+    Route::get('/user/{id}',[UserController::class,'show'])->name('user.show')->middleware( PublicProfile::class);
+    Route::get('/user/{id}/edit',[UserController::class,'edit'])->name('user.edit')->middleware(Authorized::class);
+    Route::put('/user/{id}',[UserController::class,'update'])->name('user.update')->middleware(Authorized::class);
+    // Route::get('/dashboard', function () {return view('dashboard/dashboard');})->name('dashboard');
+    Route::get('/verify-identity', function () {return view('auth.verify-identity');})->name('verify-identity')->middleware(IdentityVerification::class);
+    Route::post('/verify-identity', [UploadVerificationController::class, 'storeVerification'])->middleware(IdentityVerification::class)->name('storeVerification');
 });
 
-Route::post('/change-password', [ChangePasswordController::class, 'changePassword'])->name('change-password')->middleware(['auth', 'verified']);
 
 //Route::resource('user', UserController::class)->only('show', 'edit', 'update')->middleware('auth');
-Route::get('/user/{id}',[UserController::class,'show'])->name('user.show')->middleware(['auth', PublicProfile::class]);
-Route::get('/user/{id}/edit',[UserController::class,'edit'])->name('user.edit')->middleware(['auth', Authorized::class]);
-Route::put('/user/{id}',[UserController::class,'update'])->name('user.update')->middleware(['auth', Authorized::class]);
 
-Route::get('/dashboard', function () {
-    return view('dashboard/dashboard');
-})->name('dashboard')->middleware(['auth', 'verified']);
 
-Route::get('/verify-identity', function () {
-    return view('auth.verify-identity');
-})->name('verify-identity')->middleware(IdentityVerification::class);
 
-Route::post('/verify-identity', [UploadVerificationController::class, 'storeVerification'])
-    ->middleware(['auth', 'verified'])->name('storeVerification');
 
 Route::get('/email/verify', function () {
     return view('auth.verify-email');

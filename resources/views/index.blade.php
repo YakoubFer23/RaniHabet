@@ -14,7 +14,7 @@
                     <div class="row g-2">
                         <div class="col-md-8">
                             <input type="text" name="query" class="form-control border-0 py-3"
-                                placeholder="Search by city or state (For state search please enter the state code)" value="{{ request('query') }}">
+                                placeholder="Search by city OR state" value="{{ request('query') }}">
                         </div>
                     </div>
                 </div>
@@ -46,6 +46,9 @@
     </li>
     <li class="nav-item me-2">
         <a class="btn btn-outline-primary {{ request('type') == 'Rooms' ? 'active test' : '' }}" href="{{ route('home', ['type' => 'Rooms', 'query' => request('query')]) }}">Rooms</a>
+    </li>
+    <li class="nav-item me-2">
+        <a class="btn btn-outline-primary" href="{{ route('home', ['type' => 'Rooms', 'query' => request('query')]) }}">Rooms</a>
     </li>
 </ul>
 </form>
@@ -82,7 +85,7 @@
                                 <a class="d-block h5 mb-2"
                                     href="{{route('listings.show', ['id' => $listing->id])}}">{{$listing->title}}</a>
                                 <p><i class="fa fa-map-marker-alt text-primary me-2"></i>{{$listing->city}},
-                                    {{$listing->state}}
+                                    {{$states[$listing->state]}}
                                 </p>
                             </div>
                             <div class="d-flex border-top">
@@ -111,14 +114,9 @@
 <!-- Property List End -->
 
 <script>
-        // Get the active element with the class 'active'
         var activeElement = document.querySelector('.test');
-        // Get the hidden input field
         var hiddenInput = document.getElementById('hiddenInput');
-        
-        // Set the value of the hidden input field to the text content of the active element
         hiddenInput.value = activeElement.innerHTML;
-        console.log(activeElement.innerHTML);
     </script>
 
 

@@ -15,6 +15,9 @@ class HomeController extends Controller
     $query = $request->input('query');
     $type = $request->input('type');
 
+    $states = config('states');
+    
+
     // Start building the query for listings
     $listingsQuery = Listing::query()->where('status', 'Online'); // Only show online listings
 
@@ -38,7 +41,7 @@ class HomeController extends Controller
     $listings = $listingsQuery->paginate(6)->appends($request->all());
 
     // Return the view with listings
-    return view('index', compact('listings'));
+    return view('index', compact('listings', 'states'));
     }
     
 }

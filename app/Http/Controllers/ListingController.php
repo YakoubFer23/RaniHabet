@@ -13,9 +13,9 @@ class ListingController extends Controller
     {
         // Fetch the listing by its ID
         $listing = Listing::findOrFail($id);
-
+        $states = config("states");
         // Pass the listing data to the view
-        return view('listings', compact('listing'));
+        return view('listings', compact('listing','states'));
     }
 
     public function create()
@@ -72,7 +72,7 @@ class ListingController extends Controller
             }
         }
     
-        return redirect()->route('dash.index')->with('success', 'Listing created successfully.');
+        return redirect()->route('dash.index')->with('success', 'Property created successfully.');
     }
     
     public function apply($id, Request $request)
@@ -82,10 +82,10 @@ class ListingController extends Controller
         
         $listing = Listing::findOrFail($listingId);
         // Check if the user trying to apply is the owner of the listing
-      //  $sameUserApplying = Listing::where('user_id', $user->id)->first();
+      
        
         if ($listing->user_id == $user->id) {
-            return redirect()->route('dash.index')->with('error', 'You little shit you\'re the listing owner');
+            return redirect()->route('dash.index')->with('error', 'You can\'t apply to your own property');
         }
 
 
@@ -94,7 +94,7 @@ class ListingController extends Controller
 
 
         if ($existingApplication) {
-            return redirect()->route('dash.index')->with('error', 'You have already applied to this listing.');
+            return redirect()->route('dash.index')->with('error', 'You have already applied to this property.');
         }
 
         // Create a new application
@@ -103,7 +103,7 @@ class ListingController extends Controller
             'listing_id' => $id,
         ]);
 
-        return redirect()->route('dash.index')->with('success', 'You have successfully applied to the listing.');
+        return redirect()->route('dash.index')->with('success', 'You have successfully applied to this property.');
     }
 
     

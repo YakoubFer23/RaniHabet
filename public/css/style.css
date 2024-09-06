@@ -568,4 +568,39 @@
   .swal2-container {
     z-index: 999999;
   }
+
+  #miloud{
+    background-color: #00B98E !important; /* Lime green background */
+    color: #ffffff;
+    text-align: center;
+    padding: 0%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100000;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px; /* Smaller height */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+    
+  }
+
+  @media (max-width: 480px) {
+    #miloud {
+        padding: 5px;
+        font-size: 12px;
+        height: 10px; /* Further adjusted for small screens */
+    }
+
+    @media (max-width: 768px) {
+        #miloud {
+            padding: 6px;
+            font-size: 14px;
+            height: 15px; /* Adjusted for smaller screens */
+        }
+    }
+
+}
   

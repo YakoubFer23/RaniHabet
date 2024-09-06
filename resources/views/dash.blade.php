@@ -17,12 +17,12 @@
 @endif
 
 <div class="container">
-    <h2 class="m-3">Your Listings</h2>
+    <h2 class="m-3">Your Properties</h2>
     <table class="table table-hover">
         <tbody>
             @if ($userListings->isEmpty())
                 <div class="alert alert-danger mt-2">
-                    You don't have any listings
+                    You don't have any properties listed
                 </div>
             @endif
             @foreach($userListings as $listing)
@@ -54,12 +54,12 @@
         </tbody>
     </table>
 
-    <h2 class="m-3">Listings You Applied To</h2>
+    <h2 class="m-3">Properties You Applied To</h2>
     <table class="table table-hover">
         <tbody>
             @if ($appliedListings->isEmpty())
                 <div class="alert alert-danger mt-2">
-                    You haven't applied to any listing
+                    You haven't applied to any property
                 </div>
             @endif
             @foreach($appliedListings as $application)
@@ -96,7 +96,7 @@
             @endif
 
             <div class="card shadow">
-                <div class="card-header bg-dark">
+                <div class="card-header bg-dark" style="background-color: #00B98E !important;">
                     <h4 class="mb-0 text-white">Change Your Password</h4>
                 </div>
                 <div class="card-body">
