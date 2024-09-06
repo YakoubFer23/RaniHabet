@@ -8,27 +8,37 @@ use App\Models\Listing;
 
 class HomeController extends Controller
 {
+    
     public function index(Request $request)
     {
-        // Get the search query (if any)
+    // Get the search query and type filter
     $query = $request->input('query');
+    $type = $request->input('type');
 
-    // Build the query for listings, filtering only "Online" listings
-    $listingsQuery = Listing::where('status', 'Online'); // Only "Online" listings
+    // Start building the query for listings
+    $listingsQuery = Listing::query()->where('status', 'Online'); // Only show online listings
 
+    // Apply search filtering (search by city or state)
     if ($query) {
-        // Search by city or state
         $listingsQuery->where(function ($subQuery) use ($query) {
             $subQuery->where('city', 'LIKE', '%' . $query . '%')
                      ->orWhere('state', 'LIKE', '%' . $query . '%');
         });
     }
 
-    // Paginate the results
-    $listings = $listingsQuery->paginate(6); // Adjust the number of items per page
-
-    // Return the view with the listings
-    return view('index', compact('listings'));
-
+    // Apply type filtering (filter by Apartments, Private Room, or Shared Room)
+    if ($type == 'Apartments') {
+        $listingsQuery->where('type', 'Apartment');
+    } elseif ($type == 'Rooms') {
+        // When type is 'Rooms', include both Private Room and Shared Room
+        $listingsQuery->whereIn('type', ['Private Room', 'Shared Room']);
     }
+
+    // Paginate the results and preserve query parameters
+    $listings = $listingsQuery->paginate(6)->appends($request->all());
+
+    // Return the view with listings
+    return view('index', compact('listings'));
+    }
+    
 }
