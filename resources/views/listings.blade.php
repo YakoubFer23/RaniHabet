@@ -11,11 +11,16 @@
 <section class="py-5">
   <div class="container">
     <div class="row gx-5 wow fadeInUp" data-wow-delay="0.1s">
-    @if(session('error'))
-    <div class="alert alert-danger mt-2">
-        {{ session('error') }}
-    </div>
-@endif
+      @if(session('error'))
+      <div class="alert alert-danger mt-2">
+      {{ session('error') }}
+      </div>
+    @endif
+      @if(session('warning'))
+      <div class="alert alert-danger mt-2">
+      {{ session('warning') }}
+      </div>
+    @endif
       <aside class="col-lg-6">
         <div class="carousel-container">
 
@@ -54,15 +59,25 @@
           {{$listing->description}}
         </p>
 
-        <div class="row">
+        <div class="row mt-4">
           <dt class="col-6">Address:</dt>
           <dd class="col-6">{{$listing->address}}</dd>
 
-          <dt class="col-6"># of roomates:</dt>
-          <dd class="col-6">{{$listing->roomates}}</dd>
+          <dt class="col-6">Location:</dt>
+          <dd class="col-6">{{$listing->city}}, {{$listing->state}}</dd>
 
-          <dt class="col-6">Duration:</dt>
-          <dd class="col-6">{{$listing->duration}}</dd>
+          <dt class="col-6">Available on:</dt>
+          <dd class="col-6">{{$listing->availability}}</dd>
+          
+          <dt class="col-6">Property type:</dt>
+          <dd class="col-6">{{$listing->type}}</dd>
+          
+          <dt class="col-6">Gender availability:</dt>
+          <dd class="col-6">@if ($listing->gender == null)
+                                            Male/Female
+                                        @else
+                                            {{$listing->gender}} Only
+                                        @endif</dd>
 
 
         </div>
@@ -81,66 +96,6 @@
   </div>
 </section>
 <!-- content -->
-
-<section class="bg-light border-top py-4">
-  <div class="container">
-    <div class="row gx-4">
-      <div class="col-lg-12 mb-6">
-        <div class="border rounded-2 px-3 py-2 bg-white">
-          <!-- Pills navs -->
-          <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
-            <li class="nav-item d-flex" role="presentation">
-              <p class="nav-link d-flex align-items-center justify-content-center w-100 active" style='color: #FFFFFF'
-                id="ex1-tab-1" data-mdb-toggle="pill" role="tab" aria-controls="ex1-pills-1" aria-selected="true">About
-                your roomates</p>
-            </li>
-
-          </ul>
-          <!-- Pills navs -->
-
-          <!-- Pills content -->
-          <div class="tab-content" id="ex1-content">
-            <div class="tab-pane fade show active" id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1">
-              <p>
-                With supporting text below as a natural lead-in to additional content. Lorem ipsum dolor sit amet,
-                consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                pariatur.
-              </p>
-              <div class="row mb-2">
-                <div class="col-12 col-md-6">
-                  <ul class="list-unstyled mb-0">
-                    <li><i class="fas fa-check text-success me-2"></i>Some great feature name here</li>
-                    <li><i class="fas fa-check text-success me-2"></i>Lorem ipsum dolor sit amet, consectetur</li>
-                    <li><i class="fas fa-check text-success me-2"></i>Duis aute irure dolor in reprehenderit</li>
-                    <li><i class="fas fa-check text-success me-2"></i>Optical heart sensor</li>
-                  </ul>
-                </div>
-                <div class="col-12 col-md-6 mb-0">
-                  <ul class="list-unstyled">
-                    <li><i class="fas fa-check text-success me-2"></i>Easy fast and ver good</li>
-                    <li><i class="fas fa-check text-success me-2"></i>Some great feature name here</li>
-                    <li><i class="fas fa-check text-success me-2"></i>Modern style and design</li>
-                  </ul>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-          <!-- Pills content -->
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-
-
-
 
 @endsection
 

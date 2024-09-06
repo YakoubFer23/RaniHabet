@@ -105,4 +105,6 @@ class ListingController extends Controller
 
         return redirect()->route('dash.index')->with('success', 'You have successfully applied to the listing.');
     }
+
+    
 }

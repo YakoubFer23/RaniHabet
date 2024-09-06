@@ -8,14 +8,27 @@ use App\Models\Listing;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        // Get the search query (if any)
+    $query = $request->input('query');
 
-        $listings = Listing::where('status', 'online')
-            ->orderBy('created_at', 'DESC')
-            ->paginate(6);
+    // Build the query for listings, filtering only "Online" listings
+    $listingsQuery = Listing::where('status', 'Online'); // Only "Online" listings
 
-        return view('index', ['listings' => $listings]);
+    if ($query) {
+        // Search by city or state
+        $listingsQuery->where(function ($subQuery) use ($query) {
+            $subQuery->where('city', 'LIKE', '%' . $query . '%')
+                     ->orWhere('state', 'LIKE', '%' . $query . '%');
+        });
+    }
+
+    // Paginate the results
+    $listings = $listingsQuery->paginate(6); // Adjust the number of items per page
+
+    // Return the view with the listings
+    return view('index', compact('listings'));
 
     }
 }

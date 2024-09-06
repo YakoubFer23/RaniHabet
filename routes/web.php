@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UploadVerificationController;
 use App\Http\Middleware\Authorized;
 use App\Http\Middleware\ListApplyControll;
+use App\Http\Middleware\PendingListing;
 use App\Http\Middleware\PublicProfile;
 use App\Http\Middleware\SameGender;
 use Illuminate\Support\Facades\Route;
@@ -27,11 +28,13 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
-Route::get('/listings/{id}/', [ListingController::class, 'show'])->name('listings.show')->middleware(['auth', 'verified']);
+Route::get('/listings/{id}/', [ListingController::class, 'show'])->name('listings.show')->middleware(['auth', 'verified',PendingListing::class]);
 
 Route::get('/listing/add', [ListingController::class,'create'])->name('listings.add');
 Route::post('/listings', [ListingController::class,'store'])->name('listings.store')->middleware(ListApplyControll::class);
 Route::post('/listings/{id}/apply', [ListingController::class, 'apply'])->name('listings.apply')->middleware(SameGender::class, ListApplyControll::class);
+
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dash', [DashController::class, 'show'])->name('dash.index');
