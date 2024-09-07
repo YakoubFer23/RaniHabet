@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <input type="hidden" name="type" id="hiddenInput">
-                <div class="col-md-2"> 
+                <div class="col-md-2">
                     <button class="btn btn-dark border-0 w-100 py-3">Search</button>
                 </div>
             </div>
@@ -40,25 +40,27 @@
                     </div>
                 </div>
                 <div class="col-lg-5 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
-                <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
-    <li class="nav-item me-2">
-        <a class="btn btn-outline-primary {{ request('type') == 'Apartments' ? 'active test' : '' }}" href="{{ route('home', ['type' => 'Apartments', 'query' => request('query')]) }}">Apartments</a>
-    </li>
-    <li class="nav-item me-2">
-        <a class="btn btn-outline-primary {{ request('type') == 'Rooms' ? 'active test' : '' }}" href="{{ route('home', ['type' => 'Rooms', 'query' => request('query')]) }}">Rooms</a>
-    </li>
-    <li class="nav-item me-2">
-        <a class="btn btn-outline-primary" href="{{ route('home', ['type' => 'Rooms', 'query' => request('query')]) }}">Rooms</a>
-    </li>
-</ul>
+                    <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
+                        <li class="nav-item me-2">
+                            <a class="btn btn-outline-primary {{ request('type') == 'Apartments' ? 'active test' : '' }}"
+                                href="{{ route('home', ['type' => 'Apartments', 'query' => request('query')]) }}">Apartments</a>
+                        </li>
+                        <li class="nav-item me-2">
+                            <a class="btn btn-outline-primary {{ request('type') == 'Rooms' ? 'active test' : '' }}"
+                                href="{{ route('home', ['type' => 'Rooms', 'query' => request('query')]) }}">Rooms</a>
+                        </li>
+                        <li class="nav-item me-2">
+                            <a class="btn btn-outline-primary" href="{{ route('home')}}">Clear</a>
+                        </li>
+                    </ul>
 </form>
 </div>
 </div>
 <div class="tab-content">
     <div id="tab-1" class="tab-pane fade show p-0 active">
         @if (request('query') != null)
-        <p>Showing results for : {{request('query')}}</p>
-        
+            <p>Showing results for : {{request('query')}}</p>
+
         @endif
         @if ($listings->isNotEmpty())
             <div class="row g-4">
@@ -114,10 +116,13 @@
 <!-- Property List End -->
 
 <script>
-        var activeElement = document.querySelector('.test');
+    var activeElement = document.querySelector('.test');
+    if (activeElement) {
         var hiddenInput = document.getElementById('hiddenInput');
         hiddenInput.value = activeElement.innerHTML;
-    </script>
+
+    }
+</script>
 
 
 

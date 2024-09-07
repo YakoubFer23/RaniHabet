@@ -38,7 +38,7 @@ class HomeController extends Controller
     }
 
     // Paginate the results and preserve query parameters
-    $listings = $listingsQuery->paginate(6)->appends($request->all());
+    $listings = $listingsQuery->latest()->paginate(6)->appends($request->all());
 
     // Return the view with listings
     return view('index', compact('listings', 'states'));

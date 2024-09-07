@@ -3,9 +3,11 @@
 use App\Http\Controllers\DashController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ListingController;
+use App\Http\Controllers\Tejwak;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UploadVerificationController;
 use App\Http\Middleware\Authorized;
+use App\Http\Middleware\Barrage;
 use App\Http\Middleware\ListApplyControll;
 use App\Http\Middleware\PendingListing;
 use App\Http\Middleware\PublicProfile;
@@ -35,9 +37,15 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::get('/user/{id}',[UserController::class,'show'])->name('user.show')->middleware( PublicProfile::class);
     Route::get('/user/{id}/edit',[UserController::class,'edit'])->name('user.edit')->middleware(Authorized::class);
     Route::put('/user/{id}',[UserController::class,'update'])->name('user.update')->middleware(Authorized::class);
-    // Route::get('/dashboard', function () {return view('dashboard/dashboard');})->name('dashboard');
     Route::get('/verify-identity', function () {return view('auth.verify-identity');})->name('verify-identity')->middleware(IdentityVerification::class);
     Route::post('/verify-identity', [UploadVerificationController::class, 'storeVerification'])->middleware(IdentityVerification::class)->name('storeVerification');
+    
+    Route::get('/tejwak/ibad', [Tejwak::class,'getIbad'])->name('tejwak.ibad')->middleware(Barrage::class);
+    Route::post('/tejwak/ibad', [Tejwak::class,'validateIbad'])->name('tejwak.ibad')->middleware(Barrage::class);
+    Route::get('/tejwak/diour', [Tejwak::class,'getDiour'])->name('tejwak.diour')->middleware(Barrage::class);
+    Route::post('/tejwak/diour', [Tejwak::class,'validateDiour'])->name('tejwak.diour')->middleware(Barrage::class);
+    // Route::get('/storage/IdentityVerification')->middleware(Barrage::class);
+
 });
 
 

@@ -13,7 +13,7 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
-
+ 
    
     /**
      * The attributes that are mass assignable.
@@ -26,11 +26,13 @@ class User extends Authenticatable implements MustVerifyEmail
         'lastname',
         'email',
         'password',
+        'phone_number',
+        'identity_verified',
         'identity_verified_picture',
+        'gender',
         'profile_picture',
         'about',
-        'gender',
-        'phone_number'
+        'joueur',
     ];
 
     /**

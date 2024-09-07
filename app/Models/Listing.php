@@ -17,19 +17,20 @@ class Listing extends Model
      *
      * @var array<int, string>
      */
-    protected $table = 'listings';
+     protected $table = 'listings';
     protected $fillable = [
         'title',
         'description',
-        'price',
         'address',
-        'thumbnail',
-        'type',
         'city',
         'state',
+        'price',
+        'thumbnail',
+        'type',
         'gender',
-        'duration',
         'availability',
+        'duration',
+        'status',
         'user_id'
     ];
 

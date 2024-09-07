@@ -7,6 +7,10 @@
 
 @section('content')
 
+
+@if (Auth::user()->joueur == 'Neymar')
+<div>Status : {{$listing->status}}</div>
+@endif
 <!-- content -->
 <section class="py-5">
   <div class="container">

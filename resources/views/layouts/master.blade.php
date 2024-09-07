@@ -49,14 +49,14 @@
 
         <!-- Banner Start -->
         @if (Auth::check())
-            @if (Auth::user()->identity_verified == 'unverified')
+            @if (Auth::user()->identity_verified == 'Unverified')
                 <div class="banner wow fadeInDown" data-wow-delay="0.1s" id="banner">
                     To be able to list and apply for rooms, please&nbsp;<a href="{{route('verify-identity')}}">click
                         here</a>&nbsp;to verify your identity.
                     <span class="close-btn" id="close-btn">&times;</span>
                 </div>
 
-            @elseif (Auth::user()->identity_verified == 'failed')
+            @elseif (Auth::user()->identity_verified == 'Failed')
                 <div class="banner" id="banner">
                     We couldn't verify your identity. Please &nbsp;<a href="{{route('verify-identity')}}">click here</a>&nbsp;to
                     resubmit your identity verification.

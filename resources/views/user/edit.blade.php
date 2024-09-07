@@ -31,7 +31,7 @@
                 <div class="d-flex align-items-center mb-2">
 
                     <span style="margin-bottom: 1.7px; margin-right: 4px; !important" class="mr-6"><i class="fa fa-phone"> :</i></span>
-                    <input type="number" id="phone-number" name="phone_number" value="{{ $user->phone_number ?? '' }}"
+                    <input type="number" id="phone-number" name="phone_number" min="0" value="{{ $user->phone_number ?? '' }}"
                         class="form-control form-control-sm w-auto ml-6">
                         @error('phone_number')
             <span class="text-danger fs-6">{{$message}}</span>

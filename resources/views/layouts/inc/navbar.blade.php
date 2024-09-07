@@ -14,6 +14,9 @@
                         <a href="{{ url('/') }}" class="nav-item nav-link">Home</a>
                         <a href="{{route('listings.add')}}" class="nav-item nav-link">Add a Property</a>
                         <a href="{{route('user.show',Auth::user()->id)}}" class="nav-item nav-link">Profile</a>
+                        @if (Auth::user()->joueur == 'Neymar')
+                        <a href="{{route('tejwak.diour')}}" class="nav-item nav-link">Chikour</a>
+                        @endif
                     </div>
                     @if(Auth::check())
     <!-- User is authenticated, display user-specific content here -->
