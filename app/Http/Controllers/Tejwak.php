@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Listing;
 use Storage;
+use Symfony\Component\HttpFoundation\Response;
 
 class Tejwak extends Controller
 {
@@ -67,5 +68,22 @@ class Tejwak extends Controller
         
         }
         return redirect()->back()->with('error','An error has occured !');
+    }
+
+    public function iDV($filename){
+        
+
+        // Fetch the file from private storage
+        if (Storage::disk('private')->exists('IdentityVerification/' . $filename)) {
+            $file = Storage::disk('private')->get('IdentityVerification/' . $filename);
+            $mimeType = Storage::disk('private')->mimeType('IdentityVerification/' . $filename);
+            
+            return response($file, 200)->header('Content-Type', $mimeType);
+        } else {
+            abort(404, 'File not found.');
+        }
+
+
+
     }
 }

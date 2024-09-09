@@ -44,7 +44,7 @@ Route::middleware(['auth','verified'])->group(function () {
     Route::post('/tejwak/ibad', [Tejwak::class,'validateIbad'])->name('tejwak.ibad')->middleware(Barrage::class);
     Route::get('/tejwak/diour', [Tejwak::class,'getDiour'])->name('tejwak.diour')->middleware(Barrage::class);
     Route::post('/tejwak/diour', [Tejwak::class,'validateDiour'])->name('tejwak.diour')->middleware(Barrage::class);
-    // Route::get('/storage/IdentityVerification')->middleware(Barrage::class);
+    Route::get('/tejwak/IDV/{filename}', [Tejwak::class,'iDV'])->name('tejwak.idv')->middleware(Barrage::class);
 
 });
 

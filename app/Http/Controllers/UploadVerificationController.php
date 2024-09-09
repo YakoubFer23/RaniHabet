@@ -21,7 +21,7 @@ class UploadVerificationController extends Controller
             ]
         );
         if (request()->hasFile('identity_verified_picture')) {
-            $imagePath = request()->file('identity_verified_picture')->store('IdentityVerification', 'public');
+            $imagePath = request()->file('identity_verified_picture')->store('IdentityVerification', 'private');
             $validated['identity_verified_picture'] = $imagePath;
             $user->identity_verified = 'Pending';
         }

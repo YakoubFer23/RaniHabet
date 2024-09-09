@@ -46,7 +46,7 @@ class ListingStatusChanged extends Notification
         ->line('Title: ' . $this->listing->title)
         ->line('New Status: ' . $this->listing->status)
         ->action('View Listing', url('/listings/' . $this->listing->id))
-        ->line('Thank you for using our application!');
+        ->line('Thank you for using RaniHabet!');
     }
 
     /**

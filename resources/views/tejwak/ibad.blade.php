@@ -75,6 +75,7 @@
     <tr>
       
       <th scope="col">Name</th>
+      <th scope="col">Gender</th>
       <th scope="col">ID Photo</th>
     </tr>
   </thead>
@@ -84,8 +85,9 @@
     <tr>
       
       <td>{{$bnadem->firstname}} {{$bnadem->lastname}} </td>
+      <td>{{$bnadem->gender}}</td>
       <td>
-        <a href="/storage/{{$bnadem->identity_verified_picture}}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">View ID</a> </td>
+        <a href="{{route('tejwak.idv',['filename' => basename($bnadem->identity_verified_picture)])}}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">View ID</a> </td>
       <td>
         <form action="{{route('tejwak.ibad')}}" method="POST">
             @csrf
