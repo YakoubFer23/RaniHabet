@@ -86,4 +86,14 @@ class Tejwak extends Controller
 
 
     }
+
+    public function getStats(){
+        $userCount = User::count();
+        $listingCount = Listing::count();
+        $pendingUsers = User::where('identity_verified','Pending')->count();
+        $pendingListings = Listing::where('status','Pending')->count();
+
+
+        return view('tejwak.stats', compact('userCount','listingCount','pendingUsers','pendingListings'));
+    }
 }

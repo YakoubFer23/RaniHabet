@@ -36,13 +36,17 @@
                         <div class="nav">
                             
                             <a class="nav-link" href="{{route('tejwak.ibad')}}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                                 Profiles
                             </a>
                             <a class="nav-link" href="{{route('tejwak.diour')}}">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-plus"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-house"></i></div>
                                 Properties
                             </a>
+                            <a class="nav-link" href="{{route('tejwak.stats')}}">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-chart-simple"></i></div>
+                            Stats
+                        </a>
                             
                                 
                              
