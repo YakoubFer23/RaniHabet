@@ -13,7 +13,8 @@
     <div class="col-lg-12">
         <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
             <h1 class="m-3" style="color: #00B98E">Add a new property</h1>
-            <p>Provide some informations about your property. all fields marked with "&#42;" are required</p>
+            <p>Provide some informations about your property. all fields marked with "&#42;" are required.</p>
+            <p style="opacity: 0.5;">(Properties listed for more than 30 days will be automatically deleted.)</p>
         </div>
     </div>
     <form action="{{ route('listings.store') }}" id="listing-form" method="POST" enctype="multipart/form-data">

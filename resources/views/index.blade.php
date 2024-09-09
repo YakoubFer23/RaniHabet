@@ -1,3 +1,5 @@
+
+
 @extends('layouts.master')
 
 
@@ -92,7 +94,7 @@
                             </div>
                             <div class="d-flex border-top">
                                 <small class="flex-fill text-center border-end py-2"><i
-                                        class="fa fa-calendar text-primary me-2"></i>{{$listing->availability}}</small>
+                                        class="fa fa-calendar text-primary me-2"></i>{{ \Carbon\Carbon::parse($listing->availability)->format('d M Y') }}</small>
                                 <small class="flex-fill text-center border-end py-2"><i
                                         class="fa fa-clock text-primary me-2"></i>{{$listing->duration}}</small>
                             </div>

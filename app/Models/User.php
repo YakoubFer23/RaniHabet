@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Notifications\UserApproved;
+use App\Notifications\UserDenied;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -68,6 +70,19 @@ class User extends Authenticatable implements MustVerifyEmail
         static::creating(function ($model) {
             if (empty($model->{$model->getKeyName()})) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
+            }
+        });
+
+        static::updated(function ($user) {
+            if ($user->isDirty('identity_verified')) {
+                // Status has changed, send an email notification
+                if ($user->identity_verified == 'Verified') {
+                    $user->notify(new UserApproved($user, $user->firstname));
+                }
+
+                if ($user->identity_verified == 'Failed') {
+                    $user->notify(new UserDenied($user, $user->firstname));
+                }
             }
         });
     }

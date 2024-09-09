@@ -40,7 +40,7 @@ class Tejwak extends Controller
         return redirect()->back()->with('error','An error has Occured');
     }
     public function getDiour(){
-        $pendingListings = Listing::where("status",'Pending')->paginate(2);
+        $pendingListings = Listing::where("status",'Pending')->paginate(10);
 
         return view('tejwak.diour',compact('pendingListings'));
     }

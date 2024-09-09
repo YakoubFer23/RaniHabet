@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
 use App\Models\Image;
 use App\Models\Application;
+use App\Notifications\ListingStatusChanged;
+use App\Notifications\ListingDenied;
 
 class Listing extends Model
 {
@@ -41,6 +43,21 @@ class Listing extends Model
         // Automatically generate a UUID for the model.
         static::creating(function ($model) {
             $model->{$model->getKeyName()} = (string) Uuid::uuid4(); // Correct usage of UUID
+        });
+
+        static::updated(function ($listing) {
+            if ($listing->isDirty('status')) {
+                // Status has changed, send an email notification
+                if ($listing->status == 'Online') {
+                    $listing->user->notify(new ListingStatusChanged($listing, $listing->user->firstname));
+                }
+            }
+        });
+
+        // Listen for the deleted event (after deletion)
+        static::deleted(function ($listing) {
+            // Perform tasks after deletion, such as logging or cleaning up
+            $listing->user->notify(new ListingDenied($listing, $listing->user->firstname));
         });
     }
 

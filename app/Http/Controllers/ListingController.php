@@ -72,7 +72,7 @@ class ListingController extends Controller
             }
         }
     
-        return redirect()->route('dash.index')->with('success', 'Property created successfully.');
+        return redirect()->route('dash.index')->with('success', 'Property is pending approval. You will be notified via email once approved');
     }
     
     public function apply($id, Request $request)

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 
 <head>
     <meta charset="utf-8">
@@ -67,7 +67,7 @@
         @if (session('pending'))
             
                 <div class="banner" id="banner">
-                    Your identity verification is pending approval. Please check your profile periodically
+                    Your identity verification is pending approval. You will be notified via email once approved.
                     <span class="close-btn" id="close-btn">&times;</span>
                 </div>
         @endif

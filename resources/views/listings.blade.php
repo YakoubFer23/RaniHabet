@@ -71,7 +71,7 @@
           <dd class="col-6">{{$listing->city}}, {{$states[$listing->state]}}</dd>
 
           <dt class="col-6">Available on:</dt>
-          <dd class="col-6">{{$listing->availability}}</dd>
+          <dd class="col-6">{{ \Carbon\Carbon::parse($listing->availability)->format('d M Y') }}</dd>
           
           <dt class="col-6">Property type:</dt>
           <dd class="col-6">{{$listing->type}}</dd>

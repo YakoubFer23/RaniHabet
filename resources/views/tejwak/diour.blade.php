@@ -101,7 +101,7 @@
       <form action="{{route('tejwak.diour')}}" method="post">
           @csrf
           <input type="hidden" name="deny" value="{{$dar->id}}" >
-          <button type="submit" class="btn btn-danger">Delete</button>
+          <button type="submit" class="btn btn-danger">Deny</button>
             </td>
       </form>  
 
